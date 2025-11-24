@@ -12,20 +12,20 @@ print("by Cantilero, Cayabyab, Pasamanero, Quiblat")
 
 def load_data():
     try:
-        with open(dataFile, 'r') as f:
-            return json.load(f)
+        with open(dataFile, 'r') as openFile:
+            return json.load(openFile)
     except:
         return {}
 
 def save_data(data):
-    with open(dataFile, 'w') as f:
-        json.dump(data, f)
+    with open(dataFile, 'w') as openFile:
+        json.dump(data, openFile)
 
 def block_site(sites, end_time):
     try:
-        with open(hostsPath, 'a') as f:
+        with open(hostsPath, 'a') as openFile:
             for site in sites:
-                f.write(f"{redirect} {site}\n")
+                openFile.write(f"{redirect} {site}\n")
         
         data = load_data()
         for site in sites:
@@ -37,13 +37,13 @@ def block_site(sites, end_time):
 
 def unblock_site(sites):
     try:
-        with open(hostsPath, 'r') as f:
+        with open(hostsPath, 'r') as openFile:
             lines = f.readlines()
         
-        with open(hostsPath, 'w') as f:
+        with open(hostsPath, 'w') as openFile:
             for line in lines:
-                if not any(site in line for site in sites):
-                    f.write(line)
+                if not any(line.strip().endswith(site) for site in sites):
+                    openFile.write(line)
         
         data = load_data()
         for site in sites:
