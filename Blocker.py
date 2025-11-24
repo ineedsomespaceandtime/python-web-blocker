@@ -38,7 +38,7 @@ def block_site(sites, end_time):
 def unblock_site(sites):
     try:
         with open(hostsPath, 'r') as openFile:
-            lines = f.readlines()
+            lines = openFile.readlines()
         
         with open(hostsPath, 'w') as openFile:
             for line in lines:
